@@ -1,0 +1,52 @@
+
+"Employee Directory App built on AWS" project. 
+In this project, I'll guide you through the process of launching an employee directory application on an Amazon EC2 instance using the default VPC.
+
+## Project Steps
+
+### 1. Launching EC2 Instance
+- Navigate to the AWS console and access the EC2 dashboard.
+- Launch a new EC2 instance, providing configurations for the instance.
+
+### 2. Amazon Machine Image (AMI)
+- Select the Amazon Linux 2023 AMI, a template containing the necessary software configuration for the instance.
+
+### 3. Instance Type
+- Choose the T2 micro instance type, which is free-tier eligible and meets our requirements.
+
+### 4. Key Pair and Network Settings
+- Opt to proceed without a key pair.
+- Configure network settings using the default VPC and subnet, enabling auto-assigned public IP for direct access.
+
+### 5. Security Group
+- Set up a security group to allow HTTPS and HTTP traffic while disabling SSH.
+
+### 6. Storage and IAM Instance Profile
+- Configure storage settings, leaving the root volume unchanged.
+- Select the IAM instance profile (employee web app role) with permissions for S3 and DynamoDB.
+
+### 7. User Data
+- Provide a Bash script for downloading and installing the application.
+- The script includes setting up Python, Flask, and dependencies, downloading the application from S3, and configuring environment variables.
+  #!/bin/bash -ex
+wget https://aws-tc-largeobjects.s3-us-west-2.amazonaws.com/DEV-AWS-MO-GCNv2/FlaskApp.zip
+unzip FlaskApp.zip
+cd FlaskApp/
+yum -y install python3 mysql
+pip3 install -r requirements.txt
+amazon-linux-extras install epel
+yum -y install stress
+export PHOTOS_BUCKET=${SUB_PHOTOS_BUCKET}
+export AWS_DEFAULT_REGION=<INSERT REGION HERE>
+export DYNAMO_MODE=on
+FLASK_APP=application.py /usr/local/bin/flask run --host=0.0.0.0 --port=80
+
+### 8. Launch Instance
+- Initiate the launch of the instance, allowing AWS to build necessary components, including security groups.
+
+### 9. Instance Status
+- Monitor the instance status checks until both have passed.
+
+### 10. Accessing the Application
+- Once the instance is running, access the public IP address in a new tab to view the employee directory application.
+
