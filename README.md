@@ -9,9 +9,8 @@ This application is designed to showcase the deployment of an employee directory
 - **Customizable:** Easily adapt the application to your specific needs and requirements.
 - **Secure:** Follows AWS best practices for security, including the use of security groups and IAM roles.
 
-## Next enhancements will include:
-- Custom network configurations for improved security.
-- Integration with S3 and DynamoDB for data storage.
-- Implementation of Amazon EC2 autoscaling for high availability.
+- **Secutity** Custom network configurations.
+- **Data storage** Integration with S3 and DynamoDB.
+- **high availability** Implementation of Amazon EC2 autoscaling.
 
 
